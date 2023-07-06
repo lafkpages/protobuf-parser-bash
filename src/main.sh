@@ -31,16 +31,16 @@ while IFS="" read -n1 char; do
       schemaParserCurrentToken=""
     fi
   else
-    if [[ " ${schemaParserOperators[*]} " =~ " $char " ]]; then
+    if [ "$char" = ' ' ] || [ "$char" = $'\n' ]; then
+      schemaParserTokens+=("$schemaParserCurrentToken")
+      schemaParserCurrentToken=""
+    elif [[ " ${schemaParserOperators[*]} " =~ " $char " ]]; then
       schemaParserTokens+=("$schemaParserCurrentToken")
       schemaParserTokens+=("$char")
       schemaParserCurrentToken=""
     elif [ "$char" = "\"" ]; then
       schemaParserIsString="1"
       schemaParserCurrentToken="\""
-    elif [ "$char" = " " ] || [ "$char" = $'\n' ]; then
-      schemaParserTokens+=("$schemaParserCurrentToken")
-      schemaParserCurrentToken=""
     else
       schemaParserCurrentToken="$schemaParserCurrentToken$char"
     fi
@@ -50,3 +50,7 @@ while IFS="" read -n1 char; do
   echo "$schemaParserIsString"
   echo "${schemaParserTokens[@]}"
 done < "$schemaFile"
+
+echo $'\n\n\n'
+echo "Finished lexing, found ${#schemaParserTokens[@]} tokens:"
+printf -- "- %s\n" "${schemaParserTokens[@]}"
