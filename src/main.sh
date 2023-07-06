@@ -36,7 +36,6 @@ while IFS="" read -n1 char; do
       fi
       schemaParserCurrentToken=""
     elif [ "$char" = "=" ] || [ "$char" = "{" ] || [ "$char" = "}" ] || [ "$char" = ";" ]; then
-    #elif [[ "$char" =~ "^(=|\\{|\\}|;)$" ]]; then
       if [ -n "$schemaParserCurrentToken" ]; then
         schemaParserTokens+=("$schemaParserCurrentToken")
       fi
