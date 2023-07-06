@@ -10,3 +10,6 @@ schemaFile="$1"
 if [ -z "$schemaFile" ]; then
   usage
 fi
+
+# Load schema
+schema=$(cat "$schemaFile")
