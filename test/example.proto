@@ -1,0 +1,15 @@
+syntax = "proto3";
+
+package example;
+
+
+enum FileType {
+  REGULAR = 0;
+  DIRECTORY = 1;
+}
+
+message File {
+  string name = 1;
+  FileType type = 2;
+  bytes content = 3;
+}
