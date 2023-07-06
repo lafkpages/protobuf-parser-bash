@@ -5,8 +5,8 @@ usage() {
   exit 1
 }
 
-schema="$1"
+schemaFile="$1"
 
-if [ -z "$schema" ]; then
+if [ -z "$schemaFile" ]; then
   usage
 fi
