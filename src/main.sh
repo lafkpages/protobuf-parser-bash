@@ -46,8 +46,8 @@ while IFS="" read -n1 char; do
     fi
   fi
 
-  echo "$schemaParserCurrentToken"
-  echo "${schemaParserTokens[@]}"
+  echo "C: $schemaParserCurrentToken"
+  echo "A: ${schemaParserTokens[@]}"
 done < "$schemaFile"
 
 echo $'\n\n\n'
