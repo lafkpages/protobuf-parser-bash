@@ -31,11 +31,15 @@ while IFS="" read -n1 char; do
     fi
   else
     if [ "$char" = ' ' ] || [ "$char" = $'\n' ]; then
-      schemaParserTokens+=("$schemaParserCurrentToken")
+      if [ -n "$schemaParserCurrentToken" ]; then
+        schemaParserTokens+=("$schemaParserCurrentToken")
+      fi
       schemaParserCurrentToken=""
     elif [ "$char" = "=" ] || [ "$char" = "{" ] || [ "$char" = "}" ] || [ "$char" = ";" ]; then
     #elif [[ "$char" =~ "^(=|\\{|\\}|;)$" ]]; then
-      schemaParserTokens+=("$schemaParserCurrentToken")
+      if [ -n "$schemaParserCurrentToken" ]; then
+        schemaParserTokens+=("$schemaParserCurrentToken")
+      fi
       schemaParserTokens+=("$char")
       schemaParserCurrentToken=""
     elif [ "$char" = "\"" ]; then
