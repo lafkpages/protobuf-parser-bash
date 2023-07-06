@@ -42,6 +42,5 @@ while read -n1 char; do
 
   echo "$schemaParserCurrentToken"
   echo "$schemaParserIsString"
-  echo "$schemaSyntax"
   echo "${schemaParserTokens[@]}"
 done < "$schemaFile"
