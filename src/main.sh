@@ -11,6 +11,11 @@ if [ -z "$schemaFile" ]; then
   usage
 fi
 
+if [ ! -f "$schemaFile" ]; then
+  echo "Schema file not found: $schemaFile" 1>&2
+  exit 1
+fi
+
 # Parse schema
 schemaSyntax=""
 schemaParserCurrentToken=""
