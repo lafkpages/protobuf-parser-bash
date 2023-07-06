@@ -1,1 +1,4 @@
 .DS_Store
+
+# Encode/decode tests
+test/message.bin
