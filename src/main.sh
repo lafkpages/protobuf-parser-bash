@@ -33,7 +33,8 @@ while IFS="" read -n1 char; do
     if [ "$char" = ' ' ] || [ "$char" = $'\n' ]; then
       schemaParserTokens+=("$schemaParserCurrentToken")
       schemaParserCurrentToken=""
-    elif [[ "$char" =~ "^(=|\\{|\\}|;)$" ]]; then
+    elif [ "$char" = "=" ] || [ "$char" = "{" ] || [ "$char" = "}" ] || [ "$char" = ";" ]; then
+    #elif [[ "$char" =~ "^(=|\\{|\\}|;)$" ]]; then
       schemaParserTokens+=("$schemaParserCurrentToken")
       schemaParserTokens+=("$char")
       schemaParserCurrentToken=""
