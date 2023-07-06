@@ -51,9 +51,9 @@ while IFS="" read -n1 char; do
 
   echo "C: $schemaParserCurrentToken"
   echo -n "A: "
-  printf --  "'%s' " "${schemaParserTokens[@]}"
+  printf -- "'%s' " "${schemaParserTokens[@]}"
   echo
-done < "$schemaFile"
+done <"$schemaFile"
 
 echo $'\n\n\n'
 echo "Finished lexing, found ${#schemaParserTokens[@]} tokens:"
