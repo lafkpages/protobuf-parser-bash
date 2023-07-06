@@ -7,10 +7,12 @@ usage() {
 
 schemaFile="$1"
 
+# Check that a schema file was passed
 if [ -z "$schemaFile" ]; then
   usage
 fi
 
+# Check that the schema file exists
 if [ ! -f "$schemaFile" ]; then
   echo "Schema file not found: $schemaFile" 1>&2
   exit 1
