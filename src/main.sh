@@ -22,13 +22,14 @@ schemaParserCurrentToken=""
 schemaParserIsString="0"
 schemaParserTokens=()
 schemaParserOperators=("=" "{" "}" ";")
-while read -n1 char; do
+while IFS="" read -n1 char; do
   if [ "$schemaParserIsString" = "1" ]; then
+    schemaParserCurrentToken="$schemaParserCurrentToken$char"
     if [ "$char" = "\"" ]; then
       schemaParserIsString="0"
-      schemaParserTokens+=("$schemaParserCurrentToken\"")
+      schemaParserTokens+=("$schemaParserCurrentToken")
+      schemaParserCurrentToken=""
     fi
-    schemaParserCurrentToken="$schemaParserCurrentToken$char"
   else
     if [[ " ${schemaParserOperators[*]} " =~ " $char " ]]; then
       schemaParserTokens+=("$schemaParserCurrentToken")
@@ -37,7 +38,7 @@ while read -n1 char; do
     elif [ "$char" = "\"" ]; then
       schemaParserIsString="1"
       schemaParserCurrentToken="\""
-    elif [ "$char" = " " ]; then
+    elif [ "$char" = " " ] || [ "$char" = $'\n' ]; then
       schemaParserTokens+=("$schemaParserCurrentToken")
       schemaParserCurrentToken=""
     else
