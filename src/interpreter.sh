@@ -38,7 +38,7 @@ skipNextIter="0"
 
 echo() {
   if [ "$interpreterDebug" = "1" ]; then
-    echo "$@"
+    builtin echo "$@"
   fi
 }
 
