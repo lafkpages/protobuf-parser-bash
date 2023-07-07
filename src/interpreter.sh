@@ -262,4 +262,5 @@ done
 # Unset variables that are no longer needed
 unset isParsingMessage messageName messageFieldsTypes \
   messageFieldsNames skipNextIter fieldTypes fieldType \
-  fieldName fieldNumber enumFields
+  fieldName fieldNumber enumFields token nextToken \
+  nextNextToken nextNextNext nextNextNextNextToken
