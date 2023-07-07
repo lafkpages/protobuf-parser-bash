@@ -30,7 +30,11 @@ Then, to lex and parse a `.proto` file, run:
 ./src/main.sh <path-to-proto-file>
 ```
 
-You can try it with the [`test/example.proto`](#test/example.proto) file.
+You can try it with the [`test/example.proto`](#test/example.proto) file:
+
+```bash
+./src/main.sh test/example.proto
+```
 
 If you only want to lex the file into tokens, run:
 
