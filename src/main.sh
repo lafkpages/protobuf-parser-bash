@@ -39,3 +39,14 @@ source ./src/interpreter.sh
 echo "Finished parsing, found:"
 echo "- syntax: $schemaSyntax"
 echo "- package: $schemaPackage"
+
+echo "- messages:"
+for message in "${schemaMessages[@]}"; do
+  echo "  - $message:"
+  for fieldKey in "${!schemaMessageNames[@]}"; do
+    if [[ "$fieldKey" =~ (^$message\.(.+)$) ]]; then
+      fieldNumber="${BASH_REMATCH[2]}"
+      echo "    - ${schemaMessageTypes["$message.$fieldNumber"]} ${schemaMessageNames["$message.$fieldNumber"]} = $fieldNumber"
+    fi
+  done
+done
