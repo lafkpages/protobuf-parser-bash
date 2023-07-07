@@ -26,7 +26,7 @@ fi
 
 # Pass to lexer
 echo "Lexing $schemaFile..."
-schemaTokens=($(./src/lexer.sh <"$schemaFile"))
+source ./src/lexer.sh
 
 # Log lexer results
 echo "Finished lexing, found ${#schemaTokens[@]} tokens:"

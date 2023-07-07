@@ -1,30 +1,32 @@
 #!/usr/bin/env bash
 
-# Read from stdin, and remove comments and blank lines
-schemaData=$(sed 's/\/\/.*//')
+# This is meant to be sourced from src/main.sh
+
+# Read proto file and remove comments and blank lines
+schemaData=$(sed 's/\/\/.*//' <"$schemaFile")
 
 schemaParserCurrentToken=""
 schemaParserIsString="0"
-schemaParserTokens=()
+schemaTokens=()
 while IFS="" read -n1 char; do
   if [ "$schemaParserIsString" = "1" ]; then
     schemaParserCurrentToken="$schemaParserCurrentToken$char"
     if [ "$char" = "\"" ]; then
       schemaParserIsString="0"
-      schemaParserTokens+=("$schemaParserCurrentToken")
+      schemaTokens+=("$schemaParserCurrentToken")
       schemaParserCurrentToken=""
     fi
   else
     if [ "$char" = ' ' ] || [ "$char" = $'\n' ]; then
       if [ -n "$schemaParserCurrentToken" ]; then
-        schemaParserTokens+=("$schemaParserCurrentToken")
+        schemaTokens+=("$schemaParserCurrentToken")
       fi
       schemaParserCurrentToken=""
     elif [ "$char" = "=" ] || [ "$char" = "{" ] || [ "$char" = "}" ] || [ "$char" = ";" ]; then
       if [ -n "$schemaParserCurrentToken" ]; then
-        schemaParserTokens+=("$schemaParserCurrentToken")
+        schemaTokens+=("$schemaParserCurrentToken")
       fi
-      schemaParserTokens+=("$char")
+      schemaTokens+=("$char")
       schemaParserCurrentToken=""
     elif [ "$char" = "\"" ]; then
       schemaParserIsString="1"
@@ -35,4 +37,5 @@ while IFS="" read -n1 char; do
   fi
 done <<<"$schemaData"
 
-printf -- "%s\n" "${schemaParserTokens[@]}"
+# Unset variables from lexer
+unset schemaData schemaParserCurrentToken schemaParserIsString
