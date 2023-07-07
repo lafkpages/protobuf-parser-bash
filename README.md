@@ -7,7 +7,7 @@ A Protobuf parser, encoder and decoder in Bash.
 You'll need `protoc` for running some of the test scripts, but of course
 you can use the library without it.
 
-First, clone the repository:
+All you need to do is clone the repository:
 
 ```bash
 git clone https://github.com/lafkpages/protobuf-parser-bash.git
