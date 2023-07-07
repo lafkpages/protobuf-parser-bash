@@ -12,7 +12,7 @@ enum FileType {
 
 message File {
   string name = 1;
-  //FileType type = 2;
+  FileType type = 2;
   bytes content = 3;
-  string type = 4;
+  //string type = 4;
 }

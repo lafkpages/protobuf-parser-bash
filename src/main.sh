@@ -33,6 +33,8 @@ echo "Finished lexing, found ${#schemaTokens[@]} tokens:"
 printf -- "- %s\n" "${schemaTokens[@]}"
 echo
 
+echo "Interpreting tokens..."
+
 # Interpret tokens
 source ./src/interpreter.sh
 
