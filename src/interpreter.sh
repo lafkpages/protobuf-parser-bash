@@ -14,6 +14,7 @@ for i in "${!schemaTokens[@]}"; do
   nextToken="${schemaTokens[$i + 1]}"
   nextNextToken="${schemaTokens[$i + 2]}"
   nextNextNextToken="${schemaTokens[$i + 3]}"
+  nextNextNextNextToken="${schemaTokens[$i + 4]}"
 
   if [ "$i" = "0" ] && [ "$token" != "syntax" ]; then
     echo "Expected 'syntax' as first token" 1>&2
