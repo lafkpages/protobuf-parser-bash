@@ -15,7 +15,8 @@ fieldTypes=(string bytes number bool)
 
 skipNextIter="0"
 
-fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
+# Field name RegEx
+declare -r fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
 
 for i in "${!schemaTokens[@]}"; do
   token="${schemaTokens[$i]}"
