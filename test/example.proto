@@ -5,13 +5,14 @@ package example;
 // This is a comment and should
 // be ignored by the lexer.
 
-enum FileType {
-  REGULAR = 0;
-  DIRECTORY = 1;
-}
+// enum FileType {
+//   REGULAR = 0;
+//   DIRECTORY = 1;
+// }
 
 message File {
   string name = 1;
-  FileType type = 2;
+  //FileType type = 2;
   bytes content = 3;
+  string type = 4;
 }
