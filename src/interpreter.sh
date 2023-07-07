@@ -33,7 +33,7 @@ fieldBuiltinTypes=(
   string
   bytes
 )
-fieldTypes=($fieldBuiltinTypes)
+fieldTypes=(${fieldBuiltinTypes[@]})
 
 skipNextIter="0"
 
@@ -157,6 +157,9 @@ for i in "${!schemaTokens[@]}"; do
 
       # Save enum
       schemaEnums+=("$enumName")
+
+      # Add enum to list of field types
+      fieldTypes+=("$enumName")
 
       echo "Parsed enum $enumName with fields:"
       for fieldNumber in "${!enumFields[@]}"; do
