@@ -15,6 +15,11 @@ for i in "${!schemaTokens[@]}"; do
   nextNextToken="${schemaTokens[$i + 2]}"
   nextNextNextToken="${schemaTokens[$i + 3]}"
 
+  if [ "$i" = "0" ] && [ "$token" != "syntax" ]; then
+    echo "Expected 'syntax' as first token" 1>&2
+    exit 1
+  fi
+
   if [ "$token" = "syntax" ]; then
     # Check that the next token is an equals sign
     if [ "$nextToken" != "=" ]; then
