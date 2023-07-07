@@ -29,6 +29,7 @@ for i in "${!schemaTokens[@]}"; do
   # Ignore empty tokens.
   # This shouldn't happen, but handle it just in case.
   if [ -z "$token" ]; then
+    echo "Warning: interpreter found an empty token"
     continue
   fi
 
