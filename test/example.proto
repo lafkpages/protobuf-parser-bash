@@ -1,6 +1,6 @@
-package example;
 syntax = "proto3";
 
+package example;
 
 
 enum FileType {
