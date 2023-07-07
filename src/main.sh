@@ -23,6 +23,7 @@ schemaTokens=($(./src/lexer.sh <"$schemaFile"))
 
 echo "Finished lexing, found ${#schemaTokens[@]} tokens:"
 printf -- "- %s\n" "${schemaTokens[@]}"
+echo
 
 # Interpret tokens
 schemaSyntax=""
