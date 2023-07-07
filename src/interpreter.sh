@@ -15,6 +15,8 @@ fieldTypes=(string bytes number bool)
 
 skipNextIter="0"
 
+fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
+
 for i in "${!schemaTokens[@]}"; do
   token="${schemaTokens[$i]}"
   nextToken="${schemaTokens[$i + 1]}"
@@ -68,7 +70,7 @@ for i in "${!schemaTokens[@]}"; do
       fieldName="$nextToken"
 
       # Check that the next token is the field name
-      if [[ ! "$fieldName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+      if [[ ! "$fieldName" =~ $fieldNameRegex ]]; then
         echo "Expected message field name (pos $((i + 1)))" 1>&2
         exit 1
       fi
@@ -126,7 +128,7 @@ for i in "${!schemaTokens[@]}"; do
       fieldName="$token"
 
       # Check that this token is the field name
-      if [[ ! "$fieldName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+      if [[ ! "$fieldName" =~ $fieldNameRegex ]]; then
         echo "Expected enum field name (pos $i)" 1>&2
         exit 1
       fi
@@ -263,4 +265,5 @@ done
 unset isParsingMessage messageName messageFieldsTypes \
   messageFieldsNames skipNextIter fieldTypes fieldType \
   fieldName fieldNumber enumFields token nextToken \
-  nextNextToken nextNextNext nextNextNextNextToken
+  nextNextToken nextNextNext nextNextNextNextToken \
+  isParsingEnum isParsingField i
