@@ -74,7 +74,7 @@ for i in "${!schemaTokens[@]}"; do
       fi
 
       if [ -z "$messageName" ] || [ "$messageName" = "{" ]; then
-        echo "Expected message name after 'message'" 1>&2
+        echo "Expected message name after 'message' (pos $((i + 1)))" 1>&2
         exit 1
       fi
 
