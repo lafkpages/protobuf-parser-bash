@@ -24,6 +24,8 @@ if [ "${schemaFile: -6}" != ".proto" ]; then
   exit 1
 fi
 
+echo "Lexing $schemaFile..."
+
 # Pass to lexer
 schemaTokens=($(./src/lexer.sh <"$schemaFile"))
 
