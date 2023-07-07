@@ -35,13 +35,3 @@ You can try it with the [`test/example.proto`](#test/example.proto) file:
 ```bash
 ./src/main.sh test/example.proto
 ```
-
-If you only want to lex the file into tokens, run:
-
-```bash
-./src/lexer.sh < <path-to-proto-file>
-```
-
-One token per line will be printed to stdout.
-
-Note that here the file is passed via stdin, and not as an argument.
