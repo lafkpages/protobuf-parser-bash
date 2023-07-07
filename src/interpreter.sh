@@ -20,6 +20,12 @@ for i in "${!schemaTokens[@]}"; do
     exit 1
   fi
 
+  # Ignore empty tokens.
+  # This shouldn't happen, but handle it just in case.
+  if [ -z "$token" ]; then
+    continue
+  fi
+
   if [ "$token" = "syntax" ]; then
     # Check that the next token is an equals sign
     if [ "$nextToken" != "=" ]; then
