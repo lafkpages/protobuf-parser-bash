@@ -16,7 +16,7 @@ isParsingMessage="0"
 isParsingEnum="0"
 isParsingField="0"
 
-fieldTypes=(
+fieldBuiltinTypes=(
   double
   float
   int32
@@ -33,6 +33,7 @@ fieldTypes=(
   string
   bytes
 )
+fieldTypes=($fieldBuiltinTypes)
 
 skipNextIter="0"
 
