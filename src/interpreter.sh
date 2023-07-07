@@ -5,6 +5,10 @@
 schemaSyntax=""
 schemaPackage=""
 
+declare -A schemaMessages
+
+isParsingMessage="0"
+
 for i in "${!schemaTokens[@]}"; do
   token="${schemaTokens[$i]}"
   nextToken="${schemaTokens[$i + 1]}"
@@ -45,13 +49,34 @@ for i in "${!schemaTokens[@]}"; do
     fi
 
     # Check that the token is package
-    if [ "$token" = "package" ]; then
+    case "$token" in
+    package)
       if [ -z "$nextToken" ]; then
         echo "Expected package name after 'package'" 1>&2
         exit 1
       fi
 
       schemaPackage="$nextToken"
-    fi
+      ;;
+
+    message)
+      messageName="$nextToken"
+
+      if [ -z "$messageName" ] || [ "$messageName" = "{" ]; then
+        echo "Expected message name after 'message'" 1>&2
+        exit 1
+      fi
+
+      if [ "$nextNextToken" != "{" ]; then
+        echo "Expected '{' after 'message $messageName'" 1>&2
+        exit 1
+      fi
+
+      isParsingMessage="1"
+
+      declare -A messageFields
+
+      ;;
+    esac
   fi
 done
