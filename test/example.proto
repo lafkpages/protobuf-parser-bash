@@ -2,6 +2,8 @@ syntax = "proto3";
 
 package example;
 
+// This is a comment and should
+// be ignored by the lexer.
 
 enum FileType {
   REGULAR = 0;
