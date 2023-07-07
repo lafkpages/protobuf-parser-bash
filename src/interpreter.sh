@@ -16,7 +16,7 @@ isParsingMessage="0"
 isParsingEnum="0"
 isParsingField="0"
 
-fieldTypes=(string bytes number bool)
+fieldTypes=(string bytes number int32 bool)
 
 skipNextIter="0"
 
