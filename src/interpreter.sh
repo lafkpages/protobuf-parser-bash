@@ -79,7 +79,7 @@ for i in "${!schemaTokens[@]}"; do
       fi
 
       if [ "$nextNextToken" != "{" ]; then
-        echo "Expected '{' after 'message $messageName'" 1>&2
+        echo "Expected '{' after 'message $messageName' (pos $((i + 2)))" 1>&2
         exit 1
       fi
 
