@@ -91,3 +91,8 @@ for i in "${!schemaTokens[@]}"; do
     esac
   fi
 done
+
+# Unset variables that are no longer needed
+unset isParsingMessage
+unset messageName
+unset messageFields
