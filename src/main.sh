@@ -18,6 +18,12 @@ if [ ! -f "$schemaFile" ]; then
   exit 1
 fi
 
+# Check that the schema file has a .proto extension
+if [ "${schemaFile: -6}" != ".proto" ]; then
+  echo "Schema file must have a .proto extension: $schemaFile" 1>&2
+  exit 1
+fi
+
 # Pass to lexer
 schemaTokens=($(./src/lexer.sh <"$schemaFile"))
 
