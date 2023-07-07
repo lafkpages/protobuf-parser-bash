@@ -17,6 +17,12 @@ fieldTypes=(string bytes number bool)
 
 skipNextIter="0"
 
+echo() {
+  if [ "$interpreterDebug" = "1" ]; then
+    echo "$@"
+  fi
+}
+
 # Field name RegEx
 declare -r fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
 
@@ -276,4 +282,4 @@ unset isParsingMessage messageName messageFieldsTypes \
   messageFieldsNames skipNextIter fieldTypes fieldType \
   fieldName fieldNumber enumFields token nextToken \
   nextNextToken nextNextNext nextNextNextNextToken \
-  isParsingEnum isParsingField i
+  isParsingEnum isParsingField i echo
