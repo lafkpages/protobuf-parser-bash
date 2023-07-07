@@ -1,5 +1,8 @@
 #!/usr/bin/env bash
 
+# Read from stdin, and remove comments and blank lines
+schemaData=$(sed 's/\/\/.*//')
+
 schemaParserCurrentToken=""
 schemaParserIsString="0"
 schemaParserTokens=()
@@ -30,6 +33,6 @@ while IFS="" read -n1 char; do
       schemaParserCurrentToken="$schemaParserCurrentToken$char"
     fi
   fi
-done
+done <<<"$schemaData"
 
 printf -- "%s\n" "${schemaParserTokens[@]}"
