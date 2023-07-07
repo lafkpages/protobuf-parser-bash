@@ -38,10 +38,10 @@ echo "Interpreting tokens..."
 # Interpret tokens
 source ./src/interpreter.sh
 
+# Log interpreter results
 echo "Finished parsing, found:"
 echo "- syntax: $schemaSyntax"
 echo "- package: $schemaPackage"
-
 echo "- messages:"
 for message in "${schemaMessages[@]}"; do
   echo "  - $message:"
@@ -52,7 +52,6 @@ for message in "${schemaMessages[@]}"; do
     fi
   done
 done
-
 echo "- enums:"
 for enum in "${schemaEnums[@]}"; do
   echo "  - $enum:"
