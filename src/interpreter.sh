@@ -5,7 +5,9 @@
 schemaSyntax=""
 schemaPackage=""
 
-declare -A schemaMessages
+schemaMessages=()
+declare -A schemaMessageNames
+declare -A schemaMessageTypes
 
 isParsingMessage="0"
 isParsingEnum="0"
@@ -49,9 +51,16 @@ for i in "${!schemaTokens[@]}"; do
     if [ "$token" = "}" ]; then
       isParsingMessage="0"
 
+      # Save message
+      schemaMessages+=("$messageName")
+
       echo "Parsed message $messageName with fields:"
       for fieldNumber in "${!messageFieldsNames[@]}"; do
         echo "- ${messageFieldsTypes["$fieldNumber"]} ${messageFieldsNames["$fieldNumber"]} = $fieldNumber"
+
+        # Save field
+        schemaMessageNames["$messageName.$fieldNumber"]="${messageFieldsNames["$fieldNumber"]}"
+        schemaMessageTypes["$messageName.$fieldNumber"]="${messageFieldsTypes["$fieldNumber"]}"
       done
       echo
 
