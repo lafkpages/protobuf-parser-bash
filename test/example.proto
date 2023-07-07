@@ -15,4 +15,9 @@ message File {
   //FileType type = 2;
   bytes content = 3;
   string type = 4;
+
+  message Thing {
+    string name = 1;
+    int32 age = 2;
+  }
 }

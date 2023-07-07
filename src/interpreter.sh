@@ -67,6 +67,12 @@ for i in "${!schemaTokens[@]}"; do
     message)
       messageName="$nextToken"
 
+      # Nested messages are not supported yet
+      if [ "$isParsingMessage" = "1" ]; then
+        echo "Nested messages are not supported yet (pos $i)" 1>&2
+        exit 1
+      fi
+
       if [ -z "$messageName" ] || [ "$messageName" = "{" ]; then
         echo "Expected message name after 'message'" 1>&2
         exit 1
