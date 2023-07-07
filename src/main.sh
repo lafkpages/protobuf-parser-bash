@@ -1,5 +1,10 @@
 #!/usr/bin/env bash
 
+# /======================================================\
+# | TODO:                                                |
+# | https://bpkg.sh/guidelines/#package-exports          |
+# \======================================================/
+
 usage() {
   echo "Usage: $0 <schema>" 1>&2
   exit 1
