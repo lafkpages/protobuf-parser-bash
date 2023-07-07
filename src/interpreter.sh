@@ -8,6 +8,7 @@ schemaPackage=""
 declare -A schemaMessages
 
 isParsingMessage="0"
+isParsingEnum="0"
 isParsingField="0"
 
 fieldTypes=(string bytes number bool)
@@ -106,6 +107,64 @@ for i in "${!schemaTokens[@]}"; do
     fi
   fi
 
+  # If we're parsing an enum
+  if [ "$isParsingEnum" = "1" ]; then
+    # Check if we've reached the end of it
+    if [ "$token" = "}" ]; then
+      isParsingEnum="0"
+
+      echo "Parsed enum $enumName with fields:"
+      for fieldNumber in "${!enumFields[@]}"; do
+        echo "- ${enumFields["$fieldNumber"]} = $fieldNumber"
+      done
+      echo
+
+      continue
+    fi
+
+    if [ "$isParsingField" = "0" ]; then
+      fieldName="$token"
+
+      # Check that this token is the field name
+      if [[ ! "$fieldName" =~ ^[a-zA-Z_][a-zA-Z0-9_]*$ ]]; then
+        echo "Expected enum field name (pos $i)" 1>&2
+        exit 1
+      fi
+
+      isParsingField="1"
+
+      # Check that the next token is an equals sign
+      if [ "$nextToken" != "=" ]; then
+        echo "Expected '=' after enum field name (pos $((i + 1)))" 1>&2
+        exit 1
+      fi
+
+      # Check that the next next token is a number
+      fieldNumber="$nextNextToken"
+      if [[ ! "$fieldNumber" =~ ^[0-9]+$ ]]; then
+        echo "Expected number after enum field '=' (pos $((i + 2)))" 1>&2
+        exit 1
+      fi
+
+      # Check that the next next next token is a semicolon
+      if [ "$nextNextNextToken" != ";" ]; then
+        echo "Expected ';' after enum field number (pos $((i + 3)))" 1>&2
+        exit 1
+      fi
+
+      # Save field
+      enumFields["$fieldNumber"]="$fieldName"
+
+      # Skip next tokens
+      skipNextIter="2"
+    elif [ "$token" = ";" ]; then
+      isParsingField="0"
+    else
+      echo "This should never happen" 1>&2
+      exit 1
+    fi
+  fi
+
   if [ "$token" = "syntax" ]; then
     # Check that the next token is an equals sign
     if [ "$nextToken" != "=" ]; then
@@ -170,6 +229,29 @@ for i in "${!schemaTokens[@]}"; do
       declare -A messageFieldsNames
 
       # Skip next token
+      skipNextIter="2"
+
+      ;;
+
+    enum)
+      enumName="$nextToken"
+
+      if [ -z "$enumName" ] || [ "$enumName" = "{" ]; then
+        echo "Expected enum name after 'enum' (pos $((i + 1)))" 1>&2
+        exit 1
+      fi
+
+      if [ "$nextNextToken" != "{" ]; then
+        echo "Expected '{' after 'enum $enumName' (pos $((i + 2)))" 1>&2
+        exit 1
+      fi
+
+      isParsingEnum="1"
+
+      unset enumFields
+      declare -A enumFields
+
+      # Skip next tokens
       skipNextIter="2"
 
       ;;
