@@ -42,6 +42,10 @@ echo() {
   fi
 }
 
+echoErr() {
+  builtin echo "$@" 1>&2
+}
+
 # Field name RegEx
 declare -r fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
 
@@ -53,7 +57,7 @@ for i in "${!schemaTokens[@]}"; do
   nextNextNextNextToken="${schemaTokens[$i + 4]}"
 
   if [ "$i" = "0" ] && [ "$token" != "syntax" ]; then
-    echo "Expected 'syntax' as first token" 1>&2
+    echoErr "Expected 'syntax' as first token"
     exit 1
   fi
 
@@ -97,7 +101,7 @@ for i in "${!schemaTokens[@]}"; do
 
       # Check that the token is a field type
       if [[ ! " ${fieldTypes[@]} " =~ " ${fieldType} " ]]; then
-        echo "Expected field type (pos $((i + 1)))" 1>&2
+        echoErr "Expected field type (pos $((i + 1)))"
         exit 1
       fi
 
@@ -106,19 +110,19 @@ for i in "${!schemaTokens[@]}"; do
 
       # Check that the next token is the field name
       if [[ ! "$fieldName" =~ $fieldNameRegex ]]; then
-        echo "Expected message field name (pos $((i + 1)))" 1>&2
+        echoErr "Expected message field name (pos $((i + 1)))"
         exit 1
       fi
 
       # Check that the next next token is an equals sign
       if [ "$nextNextToken" != "=" ]; then
-        echo "Expected '=' after message field name (pos $((i + 2)))" 1>&2
+        echoErr "Expected '=' after message field name (pos $((i + 2)))"
         exit 1
       fi
 
       # Check that the next next next token is a number
       if [[ ! "$nextNextNextToken" =~ ^[0-9]+$ ]]; then
-        echo "Expected number after message field '=' (pos $((i + 3)))" 1>&2
+        echoErr "Expected number after message field '=' (pos $((i + 3)))"
         exit 1
       fi
 
@@ -126,7 +130,7 @@ for i in "${!schemaTokens[@]}"; do
 
       # Check that the next next next next token is a semicolon
       if [ "$nextNextNextNextToken" != ";" ]; then
-        echo "Expected ';' after message field number (pos $((i + 4)))" 1>&2
+        echoErr "Expected ';' after message field number (pos $((i + 4)))"
         exit 1
       fi
 
@@ -139,7 +143,7 @@ for i in "${!schemaTokens[@]}"; do
     elif [ "$token" = ";" ]; then
       isParsingField="0"
     else
-      echo "This should never happen" 1>&2
+      echoErr "This should never happen"
       exit 1
     fi
   fi
@@ -170,7 +174,7 @@ for i in "${!schemaTokens[@]}"; do
 
       # Check that this token is the field name
       if [[ ! "$fieldName" =~ $fieldNameRegex ]]; then
-        echo "Expected enum field name (pos $i)" 1>&2
+        echoErr "Expected enum field name (pos $i)"
         exit 1
       fi
 
@@ -178,20 +182,20 @@ for i in "${!schemaTokens[@]}"; do
 
       # Check that the next token is an equals sign
       if [ "$nextToken" != "=" ]; then
-        echo "Expected '=' after enum field name (pos $((i + 1)))" 1>&2
+        echoErr "Expected '=' after enum field name (pos $((i + 1)))"
         exit 1
       fi
 
       # Check that the next next token is a number
       fieldNumber="$nextNextToken"
       if [[ ! "$fieldNumber" =~ ^[0-9]+$ ]]; then
-        echo "Expected number after enum field '=' (pos $((i + 2)))" 1>&2
+        echoErr "Expected number after enum field '=' (pos $((i + 2)))"
         exit 1
       fi
 
       # Check that the next next next token is a semicolon
       if [ "$nextNextNextToken" != ";" ]; then
-        echo "Expected ';' after enum field number (pos $((i + 3)))" 1>&2
+        echoErr "Expected ';' after enum field number (pos $((i + 3)))"
         exit 1
       fi
 
@@ -203,7 +207,7 @@ for i in "${!schemaTokens[@]}"; do
     elif [ "$token" = ";" ]; then
       isParsingField="0"
     else
-      echo "This should never happen" 1>&2
+      echoErr "This should never happen"
       exit 1
     fi
   fi
@@ -211,25 +215,25 @@ for i in "${!schemaTokens[@]}"; do
   if [ "$token" = "syntax" ]; then
     # Check that the next token is an equals sign
     if [ "$nextToken" != "=" ]; then
-      echo "Expected '=' after 'syntax'" 1>&2
+      echoErr "Expected '=' after 'syntax'"
       exit 1
     fi
 
     # Check that the next next next token is a string
     if [ "${nextNextToken:0:1}" != "\"" ] || [ "${nextNextToken: -1}" != "\"" ]; then
-      echo "Expected string after 'syntax ='" 1>&2
+      echoErr "Expected string after 'syntax ='"
       exit 1
     fi
 
     # Check that the next next next token is a semicolon
     if [ "$nextNextNextToken" != ";" ]; then
-      echo "Expected ';' after 'syntax = \"...\"'" 1>&2
+      echoErr "Expected ';' after 'syntax = \"...\"'"
       exit 1
     fi
 
     # Check that the syntax is proto3
     if [ "$nextNextToken" != "\"proto3\"" ]; then
-      echo "Only proto3 syntax is supported" 1>&2
+      echoErr "Only proto3 syntax is supported"
       exit 1
     fi
 
@@ -239,7 +243,7 @@ for i in "${!schemaTokens[@]}"; do
     case "$token" in
     package)
       if [ -z "$nextToken" ]; then
-        echo "Expected package name after 'package'" 1>&2
+        echoErr "Expected package name after 'package'"
         exit 1
       fi
 
@@ -251,17 +255,17 @@ for i in "${!schemaTokens[@]}"; do
 
       # Nested messages are not supported yet
       if [ "$isParsingMessage" = "1" ]; then
-        echo "Nested messages are not supported yet (pos $i)" 1>&2
+        echoErr "Nested messages are not supported yet (pos $i)"
         exit 1
       fi
 
       if [ -z "$messageName" ] || [ "$messageName" = "{" ]; then
-        echo "Expected message name after 'message' (pos $((i + 1)))" 1>&2
+        echoErr "Expected message name after 'message' (pos $((i + 1)))"
         exit 1
       fi
 
       if [ "$nextNextToken" != "{" ]; then
-        echo "Expected '{' after 'message $messageName' (pos $((i + 2)))" 1>&2
+        echoErr "Expected '{' after 'message $messageName' (pos $((i + 2)))"
         exit 1
       fi
 
@@ -280,12 +284,12 @@ for i in "${!schemaTokens[@]}"; do
       enumName="$nextToken"
 
       if [ -z "$enumName" ] || [ "$enumName" = "{" ]; then
-        echo "Expected enum name after 'enum' (pos $((i + 1)))" 1>&2
+        echoErr "Expected enum name after 'enum' (pos $((i + 1)))"
         exit 1
       fi
 
       if [ "$nextNextToken" != "{" ]; then
-        echo "Expected '{' after 'enum $enumName' (pos $((i + 2)))" 1>&2
+        echoErr "Expected '{' after 'enum $enumName' (pos $((i + 2)))"
         exit 1
       fi
 
