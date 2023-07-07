@@ -38,4 +38,6 @@ If you only want to lex the file into tokens, run:
 ./src/lexer.sh < <path-to-proto-file>
 ```
 
+One token per line will be printed to stdout.
+
 Note that here the file is passed via stdin, and not as an argument.
