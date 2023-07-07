@@ -50,3 +50,14 @@ for message in "${schemaMessages[@]}"; do
     fi
   done
 done
+
+echo "- enums:"
+for enum in "${schemaEnums[@]}"; do
+  echo "  - $enum:"
+  for enumKey in "${!schemaEnumNames[@]}"; do
+    if [[ "$enumKey" =~ (^$enum\.(.+)$) ]]; then
+      enumNumber="${BASH_REMATCH[2]}"
+      echo "    - ${schemaEnumNames["$enum.$enumNumber"]} = $enumNumber"
+    fi
+  done
+done
