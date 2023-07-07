@@ -9,6 +9,9 @@ schemaMessages=()
 declare -A schemaMessageNames
 declare -A schemaMessageTypes
 
+schemaEnums=()
+declare -A schemaEnumNames
+
 isParsingMessage="0"
 isParsingEnum="0"
 isParsingField="0"
@@ -131,9 +134,15 @@ for i in "${!schemaTokens[@]}"; do
     if [ "$token" = "}" ]; then
       isParsingEnum="0"
 
+      # Save enum
+      schemaEnums+=("$enumName")
+
       echo "Parsed enum $enumName with fields:"
       for fieldNumber in "${!enumFields[@]}"; do
         echo "- ${enumFields["$fieldNumber"]} = $fieldNumber"
+
+        # Save field
+        schemaEnumNames["$enumName.$fieldNumber"]="${enumFields["$fieldNumber"]}"
       done
       echo
 
