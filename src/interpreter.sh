@@ -26,6 +26,12 @@ for i in "${!schemaTokens[@]}"; do
     continue
   fi
 
+  # If we're parsing a message, check if we've reached the end of it
+  if [ "$token" = "}" ] && [ "$isParsingMessage" = "1" ]; then
+    isParsingMessage="0"
+    continue
+  fi
+
   if [ "$token" = "syntax" ]; then
     # Check that the next token is an equals sign
     if [ "$nextToken" != "=" ]; then
