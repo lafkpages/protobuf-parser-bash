@@ -24,18 +24,17 @@ if [ "${schemaFile: -6}" != ".proto" ]; then
   exit 1
 fi
 
-echo "Lexing $schemaFile..."
-
 # Pass to lexer
+echo "Lexing $schemaFile..."
 schemaTokens=($(./src/lexer.sh <"$schemaFile"))
 
+# Log lexer results
 echo "Finished lexing, found ${#schemaTokens[@]} tokens:"
 printf -- "- %s\n" "${schemaTokens[@]}"
 echo
 
-echo "Interpreting tokens..."
-
 # Interpret tokens
+echo "Interpreting tokens..."
 source ./src/interpreter.sh
 
 # Log interpreter results
