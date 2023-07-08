@@ -2,7 +2,7 @@
   "name": "protobuf-parser",
   "version": "1.0.0",
   "description": "A Protobuf parser, encoder and decoder in Bash.",
-  "scripts": ["src/main.sh", "src/lexer.sh"],
+  "scripts": ["src/main.sh", "src/lexer.sh", "src/interpreter.sh"],
   "files": ["LICENSE", "README.md"],
   "repo": "lafkpages/protobuf-parser-bash"
 }
