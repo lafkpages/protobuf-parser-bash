@@ -14,13 +14,11 @@ git clone https://github.com/lafkpages/protobuf-parser-bash.git
 cd protobuf-parser-bash
 ```
 
-<!--
-Or, use bpkg to install it:
+Or, use [bpkg](https://bpkg.sh) to install it:
 
 ```bash
 bpkg install lafkpages/protobuf-parser-bash
 ```
--->
 
 ## Usage
 
