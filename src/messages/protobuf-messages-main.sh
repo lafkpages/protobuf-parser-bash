@@ -36,7 +36,6 @@ source ./src/schema/protobuf-schema-lexer.sh
 # Interpret schema
 interpreterDebug="1"
 source ./src/schema/protobuf-schema-interpreter.sh
-unset interpreterDebug
 
 # Check that specified message type exists
 if [ -z "${schemaMessages["$messageType"]}" ]; then
