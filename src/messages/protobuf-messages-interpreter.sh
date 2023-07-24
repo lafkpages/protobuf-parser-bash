@@ -49,6 +49,25 @@ for i in "${!messageTokens[@]}"; do
     fi
 
     messageJson="$messageJson\"$token\":"
+
+    # If the next token is a string, add it directly
+    if [ "${nextNextToken:0:1}" = "\"" ]; then
+      messageJson="$messageJson$nextNextToken"
+      skipNextIter="2"
+
+    # If the next token is a number, add it directly
+    elif [[ "$nextNextToken" =~ ^[0-9]+$ ]]; then
+      messageJson="$messageJson$nextNextToken"
+      skipNextIter="2"
+
+    # If the next token is a boolean, add it directly
+    elif [ "$nextNextToken" = "true" ] || [ "$nextNextToken" = "false" ]; then
+      messageJson="$messageJson$nextNextToken"
+      skipNextIter="2"
+
+    else
+      skipNextIter="1"
+    fi
   fi
 done
 
