@@ -2,14 +2,8 @@
 
 # This is meant to be sourced from src/messages/protobuf-messages-main.sh
 
-# Ensure that messageFile is set
-if [ -z "$messageFile" ]; then
-  echo "protobuf-messages-lexer: \$messageFile is not set" 1>&2
-  exit 1
-fi
-
-# Read proto file and remove comments and blank lines
-messageData=$(cat "$messageFile")
+# Read message data
+messageData=$(cat)
 
 messageParserCurrentToken=""
 messageParserIsString="0"
