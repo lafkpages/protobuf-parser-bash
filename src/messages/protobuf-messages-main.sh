@@ -53,3 +53,11 @@ source ./src/messages/protobuf-messages-lexer.sh
 echo "Finished lexing, found ${#messageTokens[@]} tokens:"
 printf -- "- %s\n" "${messageTokens[@]}"
 echo
+
+# Interpret tokens
+echo "Interpreting tokens..."
+source ./src/messages/protobuf-messages-interpreter.sh
+
+# Log interpreter results
+echo "Finished parsing, got:"
+echo "$messageJson"
