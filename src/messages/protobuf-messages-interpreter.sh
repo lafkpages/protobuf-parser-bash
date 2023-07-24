@@ -10,6 +10,7 @@ echo() {
 
 echoErr() {
   builtin echo "$@" 1>&2
+  builtin echo "Current JSON: $messageJson" 1>&2
 }
 
 # Tokens that can be directly
