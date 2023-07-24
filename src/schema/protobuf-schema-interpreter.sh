@@ -85,6 +85,9 @@ for i in "${!schemaTokens[@]}"; do
       # Save message
       schemaMessages+=("$messageName")
 
+      # Add message to list of field types
+      fieldTypes+=("$messageName")
+
       echo "Parsed message $messageName with fields:"
       for fieldNumber in "${!messageFieldsNames[@]}"; do
         echo "- ${messageFieldsTypes["$fieldNumber"]} ${messageFieldsNames["$fieldNumber"]} = $fieldNumber"
