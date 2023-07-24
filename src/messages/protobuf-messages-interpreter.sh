@@ -53,4 +53,4 @@ for i in "${!messageTokens[@]}"; do
 done
 
 # Unset variables from interpreter
-unset jsonTokens skipNextIter
+unset jsonTokens skipNextIter echo
