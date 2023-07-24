@@ -2,6 +2,12 @@
 
 # This is meant to be sourced from src/protobuf-main.sh
 
+# Ensure that schemaFile is set
+if [ -z "$schemaFile" ]; then
+  echo "protobuf-lexer: \$schemaFile is not set" 1>&2
+  exit 1
+fi
+
 # Read proto file and remove comments and blank lines
 schemaData=$(sed 's/\/\/.*//' <"$schemaFile")
 
