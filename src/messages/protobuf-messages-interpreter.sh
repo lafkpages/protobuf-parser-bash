@@ -40,25 +40,6 @@ for i in "${!messageTokens[@]}"; do
     continue
   fi
 
-  # Turn the message into JSON.
-  # An example message could look like this:
-  #
-  #   openChan {
-  #     service: "exec"
-  #     action: ATTACH_OR_CREATE
-  #   }
-  #   ref: "9erp4ql2h5"
-  #
-  # And we want to turn it into JSON that looks like this:
-  #
-  #   {
-  #     "openChan": {
-  #       "service": "exec",
-  #       "action": "ATTACH_OR_CREATE"
-  #     },
-  #     "ref": "9erp4ql2h5"
-  #   }
-
   if [[ "$token" =~ $jsonTokens ]]; then
     messageJson="$messageJson$token"
   elif [[ "$token" =~ $fieldNameRegex ]]; then
