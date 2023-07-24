@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 usage() {
-  echo "Usage: $0 <schema>" 1>&2
+  echo "Usage: $0 <schema> <messageType>" 1>&2
   exit 1
 }
 
