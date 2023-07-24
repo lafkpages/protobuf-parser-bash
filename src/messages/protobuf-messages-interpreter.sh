@@ -47,19 +47,16 @@ for i in "${!messageTokens[@]}"; do
     if [ "$nextToken" = ":" ]; then
       messageJson="$messageJson\"$token\":"
 
-      # If the next token is a string, add it directly
-      if [ "${nextNextToken:0:1}" = "\"" ]; then
-        messageJson="$messageJson$nextNextToken"
-        skipNextIter="2"
+      # Get the field number from the schema
+      fieldNumber="${schemaMessageFields["$messageType.$token"]}"
 
-      # If the next token is a number, add it directly
-      elif [[ "$nextNextToken" =~ ^[0-9]+$ ]]; then
-        messageJson="$messageJson$nextNextToken"
-        skipNextIter="2"
+      # Get the field type from the schema
+      fieldType="${schemaMessageTypes["$messageType.$fieldNumber"]}"
 
-      # If the next token is a boolean, add it directly
-      elif [ "$nextNextToken" = "true" ] || [ "$nextNextToken" = "false" ]; then
-        messageJson="$messageJson$nextNextToken"
+      # If the next token is a string, a number
+      # or a boolean, add it directly
+      if [ "$fieldType" = "string" ] || [ "$fieldType" = "bool" ] || [[ "$fieldType" =~ ^(double|float|int32|int64|uint32|uint64|sint32|sint64|fixed32|fixed64|sfixed32|sfixed64)$ ]]; then
+        messageJson="$messageJson$nextNextToken,"
         skipNextIter="2"
 
       else
