@@ -2,6 +2,8 @@
 
 usage() {
   echo "Usage: $0 <schema> <messageType>" 1>&2
+  echo 1>&2
+  echo "Example: $0 person.proto Person" 1>&2
   exit 1
 }
 
