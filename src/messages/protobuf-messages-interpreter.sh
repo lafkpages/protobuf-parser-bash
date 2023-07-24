@@ -12,12 +12,9 @@ echoErr() {
   builtin echo "$@" 1>&2
 }
 
-# Field name RegEx
-declare -r fieldNameRegex=^[a-zA-Z_][a-zA-Z0-9_]*$
-
 # Tokens that can be directly
 # added to the JSON
-declare -r jsonTokens=^[{}]$
+jsonTokens=^[{}]$
 
 skipNextIter="0"
 
@@ -75,4 +72,4 @@ for i in "${!messageTokens[@]}"; do
 done
 
 # Unset variables from interpreter
-unset fieldNameRegex jsonTokens skipNextIter
+unset jsonTokens skipNextIter
