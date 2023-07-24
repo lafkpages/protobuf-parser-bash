@@ -8,6 +8,7 @@ schemaPackage=""
 schemaMessages=()
 declare -A schemaMessageNames
 declare -A schemaMessageTypes
+declare -A schemaMessageFields
 
 schemaEnums=()
 declare -A schemaEnumNames
@@ -91,6 +92,7 @@ for i in "${!schemaTokens[@]}"; do
         # Save field
         schemaMessageNames["$messageName.$fieldNumber"]="${messageFieldsNames["$fieldNumber"]}"
         schemaMessageTypes["$messageName.$fieldNumber"]="${messageFieldsTypes["$fieldNumber"]}"
+        schemaMessageFields["$messageName.${messageFieldsNames["$fieldNumber"]}"]="$fieldNumber"
       done
       echo
 
