@@ -34,7 +34,9 @@ fi
 source ./src/schema/protobuf-schema-lexer.sh
 
 # Interpret schema
+interpreterDebug="1"
 source ./src/schema/protobuf-schema-interpreter.sh
+unset interpreterDebug
 
 # Call the lexer on the message
 echo "Lexing message..."
