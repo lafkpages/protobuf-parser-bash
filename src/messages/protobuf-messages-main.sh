@@ -5,6 +5,11 @@ usage() {
   exit 1
 }
 
+# Help arg
+if [ "$1" = "-h" ] || [ "$1" = "--help" ]; then
+  usage
+fi
+
 # Call the lexer on the message
 echo "Lexing message..."
 source ./src/messages/protobuf-messages-lexer.sh
