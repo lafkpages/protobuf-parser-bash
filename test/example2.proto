@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package example2;
+
+message Test {
+  string ref = 1;
+  OpenChan openChan = 2;
+}
+
+message OpenChan {
+  OpenChanAction action = 1;
+  string service = 2;
+}
+
+enum OpenChanAction {
+  CREATE = 0;
+  ATTACH = 1;
+  ATTACH_OR_CREATE = 2;
+}
