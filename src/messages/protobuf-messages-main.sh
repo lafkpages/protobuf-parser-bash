@@ -59,5 +59,5 @@ echo "Interpreting tokens..."
 source ./src/messages/protobuf-messages-interpreter.sh
 
 # Log interpreter results
-echo "Finished parsing, got:"
+echo "Finished interpreting, got:"
 echo "$messageJson"
