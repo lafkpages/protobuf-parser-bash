@@ -71,5 +71,8 @@ for i in "${!messageTokens[@]}"; do
   fi
 done
 
+# Closing brace
+messageJson="$messageJson}"
+
 # Unset variables from interpreter
 unset jsonTokens skipNextIter echo
