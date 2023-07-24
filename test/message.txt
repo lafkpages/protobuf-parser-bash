@@ -1,1 +1,2 @@
 name: "foo.txt"
+type: DIRECTORY
