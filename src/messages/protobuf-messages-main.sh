@@ -21,6 +21,15 @@ if [ -z "$schemaFile" ]; then
   usage
 fi
 
+messageType="$2"
+
+# Check that a message type was passed
+if [ -z "$messageType" ]; then
+  echo "protobuf-messages-main: No message type specified" 1>&2
+  echo 1>&2
+  usage
+fi
+
 # Lex schema
 source ./src/schema/protobuf-schema-lexer.sh
 
