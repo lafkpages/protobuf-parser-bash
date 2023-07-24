@@ -22,7 +22,7 @@ while IFS="" read -n1 char; do
         messageTokens+=("$messageParserCurrentToken")
       fi
       messageParserCurrentToken=""
-    elif [ "$char" = "=" ] || [ "$char" = "{" ] || [ "$char" = "}" ] || [ "$char" = ";" ]; then
+    elif [ "$char" = ":" ] || [ "$char" = "{" ] || [ "$char" = "}" ]; then
       if [ -n "$messageParserCurrentToken" ]; then
         messageTokens+=("$messageParserCurrentToken")
       fi
