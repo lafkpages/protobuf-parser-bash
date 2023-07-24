@@ -33,6 +33,9 @@ fi
 # Lex schema
 source ./src/schema/protobuf-schema-lexer.sh
 
+# Interpret schema
+source ./src/schema/protobuf-schema-interpreter.sh
+
 # Call the lexer on the message
 echo "Lexing message..."
 source ./src/messages/protobuf-messages-lexer.sh
