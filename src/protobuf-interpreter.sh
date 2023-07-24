@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This is meant to be sourced from src/main.sh
+# This is meant to be sourced from src/protobuf-main.sh
 
 schemaSyntax=""
 schemaPackage=""

@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This is meant to be sourced from src/main.sh
+# This is meant to be sourced from src/protobuf-main.sh
 
 # Read proto file and remove comments and blank lines
 schemaData=$(sed 's/\/\/.*//' <"$schemaFile")
