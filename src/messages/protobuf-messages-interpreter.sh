@@ -13,10 +13,6 @@ echoErr() {
   builtin echo "Current JSON: $messageJson" 1>&2
 }
 
-# Tokens that can be directly
-# added to the JSON
-jsonTokens=^[{}]$
-
 skipNextIter="0"
 
 messageJson="{"
@@ -41,8 +37,10 @@ for i in "${!messageTokens[@]}"; do
     continue
   fi
 
-  if [[ "$token" =~ $jsonTokens ]]; then
-    messageJson="$messageJson$token"
+  if [ "$token" = "{" ]; then
+    messageJson="$messageJson{"
+  elif [ "$token" = "}" ]; then
+    messageJson="$messageJson},"
   elif [[ "$token" =~ $fieldNameRegex ]]; then
     if [ "$nextToken" = ":" ]; then
       messageJson="$messageJson\"$token\":"
@@ -53,14 +51,32 @@ for i in "${!messageTokens[@]}"; do
       # Get the field type from the schema
       fieldType="${schemaMessageTypes["$messageType.$fieldNumber"]}"
 
-      # If the next token is a string, a number
-      # or a boolean, add it directly
-      if [ "$fieldType" = "string" ] || [ "$fieldType" = "bool" ] || [[ "$fieldType" =~ ^(double|float|int32|int64|uint32|uint64|sint32|sint64|fixed32|fixed64|sfixed32|sfixed64)$ ]]; then
-        messageJson="$messageJson$nextNextToken,"
+      # Get the enum for this field type
+      if [ -n "$fieldType" ]; then
+        fieldEnum="${schemaEnums["$fieldType"]}"
+      else
+        fieldEnum=""
+      fi
+
+      echo "${schemaEnums[@]} ${!schemaEnums[@]} ${schemaEnums["$fieldType"]}"
+      echo "$token is of type $fieldType: enum $fieldEnum"
+
+      # If the next token is an object,
+      # let it be parsed later on
+      if [ "$nextNextToken" = "{" ]; then
+        messageJson="$messageJson{"
+        skipNextIter="1"
+
+      # If it's an enum, wrap it in quotes
+      # and apply it directly
+      elif [ -n "$fieldEnum" ]; then
+        messageJson="$messageJson\"$nextNextToken\","
         skipNextIter="2"
 
+      # Otherwise, apply it directly
       else
-        skipNextIter="1"
+        messageJson="$messageJson$nextNextToken,"
+        skipNextIter="2"
       fi
     elif [ "$nextToken" = "{" ]; then
       messageJson="$messageJson\"$token\":{"
