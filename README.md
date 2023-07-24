@@ -25,11 +25,11 @@ bpkg install lafkpages/protobuf-parser-bash
 Then, to lex and parse a `.proto` file, run:
 
 ```bash
-./src/protobuf-main.sh <path-to-proto-file>
+./src/schema/protobuf-schema-main.sh <path-to-proto-file>
 ```
 
 You can try it with the [`test/example.proto`](#test/example.proto) file:
 
 ```bash
-./src/protobuf-main.sh test/example.proto
+./src/schema/protobuf-schema-main.sh test/example.proto
 ```

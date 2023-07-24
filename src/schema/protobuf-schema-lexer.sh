@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-# This is meant to be sourced from src/protobuf-main.sh
+# This is meant to be sourced from src/schema/protobuf-schema-main.sh
 
 # Ensure that schemaFile is set
 if [ -z "$schemaFile" ]; then

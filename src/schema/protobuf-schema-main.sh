@@ -31,7 +31,7 @@ fi
 
 # Pass to lexer
 echo "Lexing $schemaFile..."
-source ./src/protobuf-lexer.sh
+source ./src/schema/protobuf-schema-lexer.sh
 
 # Log lexer results
 echo "Finished lexing, found ${#schemaTokens[@]} tokens:"
@@ -40,7 +40,7 @@ echo
 
 # Interpret tokens
 echo "Interpreting tokens..."
-source ./src/protobuf-interpreter.sh
+source ./src/schema/protobuf-schema-interpreter.sh
 
 # Log interpreter results
 echo "Finished parsing, found:"
