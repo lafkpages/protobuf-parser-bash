@@ -38,6 +38,13 @@ interpreterDebug="1"
 source ./src/schema/protobuf-schema-interpreter.sh
 unset interpreterDebug
 
+# Check that specified message type exists
+if [ -z "${schemaMessages["$messageType"]}" ]; then
+  echo "protobuf-messages-main: Message type not found: $messageType" 1>&2
+  echo 1>&2
+  usage
+fi
+
 # Call the lexer on the message
 echo "Lexing message..."
 source ./src/messages/protobuf-messages-lexer.sh
