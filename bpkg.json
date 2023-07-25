@@ -2,15 +2,7 @@
   "name": "protobuf-parser",
   "version": "1.4.0",
   "description": "A Protobuf parser, encoder and decoder in Bash.",
-  "scripts": [
-    "src/proto2json.sh",
-    "src/schema/protobuf-schema-main.sh",
-    "src/schema/protobuf-schema-lexer.sh",
-    "src/schema/protobuf-schema-interpreter.sh",
-    "src/messages/protobuf-messages-main.sh",
-    "src/messages/protobuf-messages-lexer.sh",
-    "src/messages/protobuf-messages-interpreter.sh"
-  ],
+  "scripts": ["src/proto2json.sh"],
   "files": ["LICENSE", "README.md", "src/dupekeys.jq"],
   "repo": "lafkpages/protobuf-parser-bash"
 }
