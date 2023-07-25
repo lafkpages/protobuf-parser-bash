@@ -11,6 +11,6 @@
     "src/messages/protobuf-messages-lexer.sh",
     "src/messages/protobuf-messages-interpreter.sh"
   ],
-  "files": ["LICENSE", "README.md"],
+  "files": ["LICENSE", "README.md", "src/dupekeys.jq"],
   "repo": "lafkpages/protobuf-parser-bash"
 }
