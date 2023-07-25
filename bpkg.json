@@ -1,6 +1,6 @@
 {
   "name": "protobuf-parser",
-  "version": "1.3.1",
+  "version": "1.3.2",
   "description": "A Protobuf parser, encoder and decoder in Bash.",
   "scripts": [
     "src/proto2json.sh",
