@@ -69,7 +69,7 @@ done
 
 json="${json%,}}"
 
-jsonWithDupes=$(jq -Mnc --stream -f src/utils/dupekeys.jq <<<"$json")
+jsonWithDupes=$(jq -Mnc --stream -f src/dupekeys.jq <<<"$json")
 
 if [ "$?" = 0 ]; then
   echo "$jsonWithDupes"
